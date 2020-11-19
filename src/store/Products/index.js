@@ -2,6 +2,12 @@
 import axios from 'axios'
 import { URL } from '../../helpers/env'
 
+const getDefaultState = () => {
+  return {
+    data: []
+  }
+}
+
 const state = () => {
   return {
     all: {
@@ -18,7 +24,11 @@ const state = () => {
     },
     cart: {
       data: []
-    }
+    },
+    checkout: {
+      data: []
+    },
+    getDefaultState () {}
   }
 }
 
@@ -34,6 +44,9 @@ const getters = {
   },
   getCart (state) {
     return state.cart
+  },
+  checkoutItem (state) {
+    return state.checkout
   }
 }
 
@@ -52,6 +65,12 @@ const mutations = {
   },
   SET_CART_DATA (state, payload) {
     state.cart.data = payload
+  },
+  SET_CHECKOUT_DATA (state, payload) {
+    state.checkout.data = payload
+  },
+  resetState (state) {
+    Object.assign(state, getDefaultState())
   }
 }
 
@@ -123,6 +142,29 @@ const actions = {
         .then((response) => {
           resolve()
           context.commit('SET_CART_DATA', response.data)
+        }).catch((err) => {
+          console.log(err.message)
+        })
+    })
+  },
+  deleteCart (context, payload) {
+    return new Promise((resolve, reject) => {
+      axios.delete(`http://localhost:3000/keranjangs/${payload}`)
+        .then((response) => {
+          resolve()
+          context.commit('SET_CART_DATA', response.data)
+        }).catch((err) => {
+          console.log(err)
+        })
+    })
+  },
+  checkoutItem (context, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post('http://localhost:3000/pesanans', payload)
+        .then((response) => {
+          resolve()
+          context.commit('SET_CHECKOUT_DATA', response.data)
+          context.commit('resetState')
         }).catch((err) => {
           console.log(err.message)
         })
