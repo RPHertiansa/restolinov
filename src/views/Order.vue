@@ -20,7 +20,7 @@
                 <form @submit.prevent="addToCart(detail.data, jumlah, keterangan)">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Jumlah Pesanan</label>
-                        <input type="number" v-model="jumlah" class="form-control">
+                        <input type="number" v-model="jumlah" class="form-control" required>
                     </div>
                      <div class="form-group">
                         <label for="exampleFormControlTextarea1">Keterangan</label>
@@ -39,6 +39,7 @@ import { mapActions, mapGetters } from 'vuex'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import currency from '../mixins/currency'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Order',
@@ -72,7 +73,13 @@ export default {
       const total = parseInt(jumlah_pemesanan) * product.harga
       const data = { product, jumlah_pemesanan, keterangan, total }
       this.cart(data)
-      this.$router.push({ path: '/keranjang' })
+        .then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product added to cart'
+          })
+          this.$router.push({ path: '/keranjang' })
+        })
     }
   },
   mounted () {

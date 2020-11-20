@@ -21,7 +21,7 @@
             <tbody v-for="(item, index) in cartData.data" :key="index" >
                 <tr>
                     <td>{{item.id}}</td>
-                    <td><img class="img-table" :src="require(`../assets/images/${item.product.gambar}`)" alt=""></td>
+                    <td><img class="img-table rounded" :src="require(`../assets/images/${item.product.gambar}`)" alt=""></td>
                     <td scope="row">{{item.product.nama}}</td>
                     <td>Rp {{formatPrice(item.product.harga)}}</td>
                     <td>{{item.jumlah_pemesanan }}</td>
@@ -30,15 +30,16 @@
                 </tr>
             </tbody>
         </table>
-          <div class="ml-auto w-25 text-left">
+          <div class="ml-auto checkout text-left">
+            <h5 class="text-left mb-4 font-weight-bold">Total Harga: <span class="ml-3">Rp {{formatPrice(total_biaya)}}</span></h5>
             <form @submit.prevent="checkout(nama, noMeja, cartData.data)">
                 <div class="form-group ">
                     <label for="nama" >Nama</label>
-                    <input type="text" v-model="nama" class="form-control">
+                    <input type="text" v-model="nama" class="form-control" required>
                 </div>
                 <div class="form-group ">
                     <label for="nomor" >Nomor Meja</label>
-                    <input type="number" v-model="noMeja" class="form-control">
+                    <input type="number" v-model="noMeja" class="form-control" required>
                 </div>
                 <div class="text-right">
                   <button type="submit" class="btn order-btn" ><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
@@ -55,14 +56,17 @@ import { mapGetters, mapActions } from 'vuex'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import currency from '../mixins/currency'
+import total from '../mixins/total'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Keranjang',
-  mixins: [currency],
+  mixins: [currency, total],
   data () {
     return {
       nama: '',
-      noMeja: ''
+      noMeja: '',
+      total_biaya: ''
     }
   },
   components: {
@@ -81,26 +85,64 @@ export default {
       checkoutItem: 'products/checkoutItem',
       actionDeleteCart: 'products/deleteCart'
     }),
+    sumTotal (harga) {
+      const mapping = harga.map((e) => {
+        return e.total
+      })
+
+      const total = mapping.reduce((item, data) => {
+        return item + data
+      }, 0)
+      this.total_biaya = total
+    },
     deleteCart (id) {
       this.actionDeleteCart(id)
-      this.getCart()
+        .then(() => {
+          this.getCart()
+            .then(() => {
+              this.sumTotal(this.cartData.data)
+            })
+          Swal.fire({
+            icon: 'success',
+            title: 'Product is deleted'
+          })
+        })
     },
     checkout (nama, noMeja, keranjangs) {
       this.nama = nama
       this.noMeja = noMeja
-      const data = { nama, noMeja, keranjangs }
+      const totalBiaya = this.total_biaya
+      const data = { nama, noMeja, keranjangs, totalBiaya }
       this.checkoutItem(data)
-      // this.$router.push('/pesanan-sukses')
+        .then(() => {
+          // this.actionResetState()
+          Swal.fire({
+            icon: 'success',
+            title: 'Order Success!'
+          })
+          this.$router.push('/pesanan-sukses')
+        })
+      // this.makeToast(true)
     }
+    // makeToast (append = false) {
+    //   this.$bvToast.toast('This is toast number', {
+    //     title: 'BootstrapVue Toast',
+    //     autoHideDelay: 5000,
+    //     appendToast: append
+    //   })
+    // }
   },
   mounted () {
     this.getCart()
+      .then(() => {
+        this.sumTotal(this.cartData.data)
+      })
   }
 }
 </script>
 <style>
 .img-table{
-  width: 200px !important;
+  width: 300px !important;
 }
 .order-btn{
   background-color: #7CBF95 !important;
@@ -111,5 +153,8 @@ export default {
   transform: scale(1.01) !important;
   background-color: #7CBF95 !important;
   filter: contrast(1.1) !important;
+}
+.checkout{
+  width: 400px;
 }
 </style>

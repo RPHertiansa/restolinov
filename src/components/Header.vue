@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-navbar class="head my-4" toggleable="lg" variant="faded" type="light">
-          <b-navbar-brand href="#">Resto Linov</b-navbar-brand>
+          <b-navbar-brand to="/">Resto Linov</b-navbar-brand>
 
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -13,7 +13,7 @@
 
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
-              <p class="my-auto mr-2"> Keranjang<router-link to="/keranjang"> <b-icon-bag class="mx-2" style="text-decoration:none;"></b-icon-bag> </router-link>  <span class="cart">{{cartData.data.length}}</span></p>
+              <b-nav-item to="/keranjang"><p class="my-auto mr-2"> Keranjang  <b-icon-bag class="mx-2"></b-icon-bag><span class="cart">{{cartData.data.length}}</span></p></b-nav-item>
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
