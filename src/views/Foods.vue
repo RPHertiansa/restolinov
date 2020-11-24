@@ -17,6 +17,14 @@ export default {
     Header,
     Card,
     Footer
+  },
+  created () {
+    window.addEventListener('beforeunload', this.reloadPage)
+  },
+  methods: {
+    reloadPage () {
+      sessionStorage.clear()
+    }
   }
 }
 </script>

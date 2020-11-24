@@ -2,8 +2,8 @@
     <div class="container">
         <Header />
         <div>
-            <img src="../assets/images/menunggu.png" alt="" style="width: 500px">
-            <h3>Sukses!!!</h3>
+            <img class="img-fluid" src="../assets/images/menunggu.png" alt="" style="height: 350px">
+            <h3>Sukses</h3>
             <p>Pesanan anda segera diproses</p>
             <p>Selamat menunggu</p>
         </div>

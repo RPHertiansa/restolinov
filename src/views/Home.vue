@@ -9,7 +9,7 @@
         <b-button class="order-btn" to="/foods"><b-icon-arrow-right class="mr-1 arrow-icon h3"></b-icon-arrow-right> Pesan</b-button>
       </div>
       <div class="col-lg-6">
-        <img src="../assets/images/ilustrasi.png" height="400px" alt="">
+        <img class="img-fluid" src="../assets/images/ilustrasi.png" height="400px" alt="">
       </div>
     </div>
     <div class="row mb-3 mt-3">

@@ -2,11 +2,11 @@
     <div class="container">
         <Header />
         <h2 class="text-left mt-3 mb-4">Keranjang Saya</h2>
-        <div v-if="cartData.data.length === 0">
+        <div v-if="cartData.data.length === 0" class="empty">
           Silakan order terlebih dahulu
         </div>
         <div v-else>
-          <table class="table text-left">
+          <table class="table text-left table-responsive-sm">
             <thead>
                 <tr>
                     <th>#</th>
@@ -30,7 +30,7 @@
                 </tr>
             </tbody>
         </table>
-          <div class="ml-auto checkout text-left">
+          <div class="ml-auto col-lg-6 col-sm-12 text-left">
             <h5 class="text-left mb-4 font-weight-bold">Total Harga: <span class="ml-3">Rp {{formatPrice(total_biaya)}}</span></h5>
             <form @submit.prevent="checkout(nama, noMeja, cartData.data)">
                 <div class="form-group ">
@@ -79,6 +79,9 @@ export default {
       checkoutData: 'products/checkoutItem'
     })
   },
+  created () {
+    window.addEventListener('beforeunload', this.reloadPage)
+  },
   methods: {
     ...mapActions({
       getCart: 'products/getCart',
@@ -115,22 +118,19 @@ export default {
       const data = { nama, noMeja, keranjangs, totalBiaya }
       this.checkoutItem(data)
         .then(() => {
-          // this.actionResetState()
+          keranjangs.map((e) => {
+            this.actionDeleteCart(e.id)
+          })
           Swal.fire({
             icon: 'success',
             title: 'Order Success!'
           })
           this.$router.push('/pesanan-sukses')
         })
-      // this.makeToast(true)
+    },
+    reloadPage () {
+      sessionStorage.clear()
     }
-    // makeToast (append = false) {
-    //   this.$bvToast.toast('This is toast number', {
-    //     title: 'BootstrapVue Toast',
-    //     autoHideDelay: 5000,
-    //     appendToast: append
-    //   })
-    // }
   },
   mounted () {
     this.getCart()
@@ -141,6 +141,10 @@ export default {
 }
 </script>
 <style>
+.empty{
+  margin-top: 150px;
+  height: 250px;
+}
 .img-table{
   width: 300px !important;
 }
@@ -153,8 +157,5 @@ export default {
   transform: scale(1.01) !important;
   background-color: #7CBF95 !important;
   filter: contrast(1.1) !important;
-}
-.checkout{
-  width: 400px;
 }
 </style>

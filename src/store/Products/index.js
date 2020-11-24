@@ -1,12 +1,5 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
-import { URL } from '../../helpers/env'
-
-const getDefaultState = () => {
-  return {
-    data: []
-  }
-}
 
 const state = () => {
   return {
@@ -27,8 +20,7 @@ const state = () => {
     },
     checkout: {
       data: []
-    },
-    getDefaultState () {}
+    }
   }
 }
 
@@ -68,9 +60,6 @@ const mutations = {
   },
   SET_CHECKOUT_DATA (state, payload) {
     state.checkout.data = payload
-  },
-  resetState (state) {
-    Object.assign(state, getDefaultState())
   }
 }
 
@@ -164,7 +153,6 @@ const actions = {
         .then((response) => {
           resolve()
           context.commit('SET_CHECKOUT_DATA', response.data)
-          context.commit('resetState')
         }).catch((err) => {
           console.log(err.message)
         })
