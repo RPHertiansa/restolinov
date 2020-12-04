@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-center">
       <hr>
       <p class="copy">2020 Copyright Reynaldi Putra Hertiansa</p>
     </div>

@@ -9,16 +9,15 @@
       </div>
       <div v-if="Products.isLoading">
         <div class="row" style="height: 45vw">
-          <div class="col-lg-12">
-            <img src="../assets/images/menunggu.png" alt="" width="300px"><br>
-            Mohon menunggu
+          <div class="col-lg-12 text-center">
+             <div class="text-center spinner-border linov-text "  style="width: 3rem; height: 3rem;" role="status"></div>
           </div>
         </div>
       </div>
       <div v-else>
         <div v-if="Products.data.length === 0" style="height: 45vw;">
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 ">
               <h1 class="text-center font-weight-bold m-auto">Data not found</h1>
             </div>
           </div>
@@ -31,7 +30,7 @@
                 <div class="card-body text-left">
                   <h5 class="card-title">{{product.nama}}</h5>
                   <p class="card-text">Harga Rp {{formatPrice(product.harga)}}</p>
-                  <button type="button" class="btn order-btn" @click="order(product)"><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
+                  <button type="button" class="btn linov-btn" @click="order(product)"><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
                 </div>
               </div>
             </div>
@@ -86,20 +85,5 @@ export default {
 </script>
 
 <style>
-.order-btn{
-  background-color: #7CBF95 !important;
-  color: white !important;
-  border: solid 1px #7CBF95 !important;
-}
-.order-btn:hover{
-  transform: scale(1.01) !important;
-  background-color: #7CBF95 !important;
-  filter: contrast(1.1) !important;
-}
-.order-btn::after{
-  background-color: #7CBF95;
-}
-.cart-icon{
-  margin-top: 2px;
-}
+@import '../assets/css/main.css';
 </style>

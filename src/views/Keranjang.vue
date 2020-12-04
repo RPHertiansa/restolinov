@@ -42,7 +42,7 @@
                     <input type="number" v-model="noMeja" class="form-control" required>
                 </div>
                 <div class="text-right">
-                  <button type="submit" class="btn order-btn" ><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
+                  <button type="submit" class="btn linov-btn" ><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
                 </div>
             </form>
           </div>
@@ -141,21 +141,5 @@ export default {
 }
 </script>
 <style>
-.empty{
-  margin-top: 150px;
-  height: 250px;
-}
-.img-table{
-  width: 300px !important;
-}
-.order-btn{
-  background-color: #7CBF95 !important;
-  color: white !important;
-  border: solid 1px #7CBF95 !important;
-}
-.order-btn:hover{
-  transform: scale(1.01) !important;
-  background-color: #7CBF95 !important;
-  filter: contrast(1.1) !important;
-}
+@import '../assets/css/main.css';
 </style>

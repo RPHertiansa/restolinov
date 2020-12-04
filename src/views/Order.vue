@@ -26,7 +26,7 @@
                         <label for="exampleFormControlTextarea1">Keterangan</label>
                         <textarea class="form-control" v-model="keterangan" placeholder="seperti" rows="2"></textarea>
                     </div>
-                    <button type="submit" class="btn order-btn" ><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
+                    <button type="submit" class="btn linov-btn" ><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
                 </form>
             </div>
         </div>
@@ -89,24 +89,5 @@ export default {
 </script>
 
 <style>
-.round{
-  border-radius: 4% !important;
-}
-.boxshadow{
-    box-shadow: 5px 7px 10px rgba(0, 0, 0, 0.2) !important;
-}
-.order-btn{
-  background-color: #7CBF95 !important;
-  color: white !important;
-  border: solid 1px #7CBF95 !important;
-}
-.order-btn:hover{
-  transform: scale(1.01) !important;
-  background-color: #7CBF95 !important;
-  filter: contrast(1.1) !important;
-}
-.bread{
-  background-color: transparent !important;
-  padding: 0px !important;
-}
+@import '../assets/css/main.css';
 </style>

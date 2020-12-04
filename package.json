@@ -13,12 +13,15 @@
     "bootstrap-vue": "^2.19.0",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
+    "idb": "^5.0.8",
+    "indexeddb-export-import": "^2.1.2",
     "register-service-worker": "^1.7.1",
     "sweetalert2": "^10.10.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-sweetalert2": "^4.1.1",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-cache": "^3.3.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

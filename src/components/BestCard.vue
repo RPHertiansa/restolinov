@@ -7,7 +7,7 @@
                 <div class="card-body text-left">
                   <h5 class="card-title">{{product.nama}}</h5>
                   <p class="card-text">Harga Rp {{formatPrice(product.harga)}}</p>
-                  <button type="button" class="btn order-btn" @click="addToCart(product)"><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
+                  <button type="button" class="btn linov-btn" @click="addToCart(product)"><b-icon-cart class="mr-2 h5 cart-icon" ></b-icon-cart>Pesan</button>
                 </div>
               </div>
             </div>

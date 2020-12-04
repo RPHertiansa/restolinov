@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group text-center">
-          <button type="submit" class="btn btn-block order-btn">Login</button>
+          <button type="submit" class="btn btn-block linov-btn">Login</button>
         </div>
 
         <div class="form-group text-center">
@@ -82,27 +82,5 @@ export default {
 }
 </script>
 <style scoped>
-.login {
-  background: #ffffff;
-  border-radius: 30px;
-  text-align: left;
-  border: 1px solid #7CBF95;
-}
-.line {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-style: solid;
-  border-width: 1px;
-}
-.order-btn{
-  background-color: #7CBF95 !important;
-  color: white !important;
-  border: solid 1px #7CBF95 !important;
-}
-.order-btn:hover{
-  transform: scale(1.01) !important;
-  background-color: #7CBF95 !important;
-  filter: contrast(1.1) !important;
-}
+@import '../assets/css/main.css';
 </style>
