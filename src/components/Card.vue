@@ -54,7 +54,8 @@ export default {
       kode: '',
       nama: '',
       harga: '',
-      gambar: ''
+      gambar: '',
+      prodData: this.Products
     }
   },
   computed: {
@@ -67,6 +68,10 @@ export default {
       getAllProducts: 'products/getAllProducts',
       search: 'products/search'
     }),
+    actionGET () {
+      this.getAllProducts()
+      this.createDB()
+    },
     order (product) {
       localStorage.removeItem('id')
       localStorage.setItem('id', product.id)
@@ -76,10 +81,61 @@ export default {
           id: product.id
         }
       })
+    },
+    createDB () {
+      let db = null
+
+      const request = indexedDB.open('prod', 1)
+
+      request.onupgradeneeded = e => {
+        db = e.target.result
+        const store = db.createObjectStore('product', { keyPath: 'id' })
+        store.transaction.oncomplete = e => {
+          console.log('store created')
+        }
+        console.log('upgrade is called')
+      }
+
+      request.onsuccess = e => {
+        function insertItem (products) {
+          if (db) {
+            const insert = db.transaction('product', 'readwrite')
+            const store = insert.objectStore('product')
+
+            insert.onerror = e => {
+              console.log('error')
+            }
+
+            store.transaction.oncomplete = e => {
+              console.log('success')
+            }
+
+            products.forEach(product => {
+              const request = store.add(product)
+
+              request.onerror = e => {
+                console.log('insert error')
+              }
+
+              request.onsuccess = e => {
+                console.log('insert success')
+              }
+            })
+          }
+        }
+        insertItem(this.Products.data)
+        console.log(this.Products.data)
+        console.log('success')
+      }
+
+      request.onerror = e => {
+        console.log('error')
+      }
     }
+
   },
   mounted () {
-    this.getAllProducts()
+    this.actionGET()
   }
 }
 </script>

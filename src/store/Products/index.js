@@ -70,7 +70,6 @@ const actions = {
       axios.get('http://localhost:3000/products')
         .then((response) => {
           resolve()
-          localStorage.setItem('productData', JSON.stringify(response.data))
           context.commit('SET_ALL_DATA_PRODUCT', response.data)
         }).catch((err) => {
           console.log(err)
@@ -85,7 +84,6 @@ const actions = {
         .then((response) => {
           resolve()
           context.commit('SET_BEST_PRODUCT', response.data)
-          localStorage.setItem('bestData', JSON.stringify(response.data))
         }).catch((err) => {
           console.log(err)
         })
